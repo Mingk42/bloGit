@@ -1,0 +1,44 @@
+## FastAPI 부하테스트
+
+#### 부하테스트
+
+오늘은 오랜만에 돌아온 부하테스트 시간이었다.
+
+Docker FastAPI
+
+#### Docker nginx
+
+###### Dockerfile
+```
+FROM nginx:1.25.1
+
+COPY default.conf /etc/nginx/conf.d/i
+```
+
+###### default.conf
+```
+upstream ml_servers {
+        server ml-1:8080;
+        server ml-2:8080;
+}
+
+server {
+        listen 80;
+
+        location /
+        {                                                                                                                                                                                 proxy_pass http://ml_servers;                                                                                                                                     }                                                                                                                                                                 }  
+```
+
+
+```bash
+$ sudo docker run -d --name ml-1 fish:v1.1.0
+$ sudo docker run -d --name ml-2 fish:v1.1.0
+```
+
+```bash
+$ sudo docker run -d -p 70:80 --link ml-1 --link ml-2 --name ngx150  nginx:v1.5.0
+```
+
+`--link` 
+
+### 정리

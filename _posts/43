@@ -8,6 +8,8 @@ Docker FastAPI
 
 #### Docker nginx
 
+이번에는 load balance를 하면 성능이 개선되는지 확인하기 위해 docker로 nginx를 띄웠다. 이전에는 직접 nginx를 설치했었는데, docker를 이용하면 직접 설치하지 않고도 사용가능해진다. 
+
 ###### Dockerfile
 ```
 FROM nginx:1.25.1
